@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'BEGINTABLE CLOSEBODY CLOSEDATA CLOSEDIV CLOSEHEAD CLOSEHEADER CLOSEHREF CLOSEROW CLOSETABLE CONTENT OPENBODY OPENDATA OPENDIV OPENHEAD OPENHEADER OPENHREF OPENROW OPENTABLE\n    start : st\n    \n    skipcontent : CONTENT skipcontent\n                | \n    handledata : OPENDATA CLOSEDATA skipcontent\n               | OPENDATA CONTENT CLOSEDATA skipcontent\n               | OPENDATA CONTENT CONTENT CLOSEDATA skipcontent\n               | OPENDATA OPENHREF CONTENT CLOSEHREF CLOSEDATA skipcontent\n               | OPENDATA OPENHREF CONTENT CONTENT CLOSEHREF CLOSEDATA skipcontent\n    \n    skipheaders : OPENHEADER CONTENT CLOSEHEADER skipheaders\n                | OPENHEADER CONTENT CONTENT CLOSEHEADER skipheaders\n                | \n    printhandledata : handledata printhandledata\n                    | \n    handlerow : OPENROW printhandledata CLOSEROW skipcontent handlerow\n              | \n    st : BEGINTABLE OPENHEAD OPENROW skipheaders CLOSEROW CLOSEHEAD OPENBODY handlerow CLOSEBODY\n       | '
+_lr_signature = 'ACTIVE CATEGOR CLOSEBODY CLOSEDATA CLOSEDIV CLOSEHEAD CLOSEHEADER CLOSEHREF CLOSEROW CLOSETABLE CONTENT DEATHS LINE NEWCASES OPENBODY OPENDATA OPENDIV OPENHEAD OPENHEADER OPENHREF OPENROW OPENTABLE RECOVERED \n    start : active\n          | deaths\n          | newcases\n          | recover\n    \n    skipcontent : CONTENT skipcontent\n                | CONTENT \n    active : ACTIVE skipcontent CATEGOR CONTENT skipcontent LINE CONTENT\n    \n    deaths : DEATHS skipcontent CATEGOR CONTENT skipcontent LINE CONTENT\n    \n    newcases : NEWCASES skipcontent CATEGOR CONTENT skipcontent LINE CONTENT\n    \n    recover : RECOVERED skipcontent LINE CONTENT\n    '
     
-_lr_action_items = {'BEGINTABLE':([0,],[3,]),'$end':([0,1,2,22,],[-17,0,-1,-16,]),'OPENHEAD':([3,],[4,]),'OPENROW':([4,13,23,28,29,35,],[5,16,-3,16,-3,-2,]),'OPENHEADER':([5,12,14,],[7,7,7,]),'CLOSEROW':([5,6,12,14,15,16,18,19,20,24,25,29,30,32,35,36,37,40,42,43,44,45,],[-11,8,-11,-11,-9,-13,-10,23,-13,-12,-3,-3,-4,-3,-2,-3,-5,-6,-3,-3,-7,-8,]),'CONTENT':([7,9,21,23,25,26,27,29,32,33,36,42,43,],[9,11,26,29,29,31,33,29,29,38,29,29,29,]),'CLOSEHEAD':([8,],[10,]),'CLOSEHEADER':([9,11,],[12,14,]),'OPENBODY':([10,],[13,]),'CLOSEBODY':([13,17,23,28,29,34,35,],[-15,22,-3,-15,-3,-14,-2,]),'OPENDATA':([16,20,25,29,30,32,35,36,37,40,42,43,44,45,],[21,21,-3,-3,-4,-3,-2,-3,-5,-6,-3,-3,-7,-8,]),'CLOSEDATA':([21,26,31,39,41,],[25,32,36,42,43,]),'OPENHREF':([21,],[27,]),'CLOSEHREF':([33,38,],[39,41,]),}
+_lr_action_items = {'ACTIVE':([0,],[6,]),'DEATHS':([0,],[7,]),'NEWCASES':([0,],[8,]),'RECOVERED':([0,],[9,]),'$end':([1,2,3,4,5,23,30,31,32,],[0,-1,-2,-3,-4,-10,-7,-8,-9,]),'CONTENT':([6,7,8,9,11,15,17,18,19,20,21,22,27,28,29,],[11,11,11,11,11,20,21,22,23,11,11,11,30,31,32,]),'CATEGOR':([10,11,12,13,16,],[15,-6,17,18,-5,]),'LINE':([11,14,16,24,25,26,],[-6,19,-5,27,28,29,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'start':([0,],[1,]),'st':([0,],[2,]),'skipheaders':([5,12,14,],[6,15,18,]),'handlerow':([13,28,],[17,34,]),'printhandledata':([16,20,],[19,24,]),'handledata':([16,20,],[20,20,]),'skipcontent':([23,25,29,32,36,42,43,],[28,30,35,37,40,44,45,]),}
+_lr_goto_items = {'start':([0,],[1,]),'active':([0,],[2,]),'deaths':([0,],[3,]),'newcases':([0,],[4,]),'recover':([0,],[5,]),'skipcontent':([6,7,8,9,11,20,21,22,],[10,12,13,14,16,24,25,26,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,21 +27,14 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> start","S'",1,None,None,None),
-  ('start -> st','start',1,'p_start','task.py',91),
-  ('skipcontent -> CONTENT skipcontent','skipcontent',2,'p_skipcontent','task.py',96),
-  ('skipcontent -> <empty>','skipcontent',0,'p_skipcontent','task.py',97),
-  ('handledata -> OPENDATA CLOSEDATA skipcontent','handledata',3,'p_handledata','task.py',101),
-  ('handledata -> OPENDATA CONTENT CLOSEDATA skipcontent','handledata',4,'p_handledata','task.py',102),
-  ('handledata -> OPENDATA CONTENT CONTENT CLOSEDATA skipcontent','handledata',5,'p_handledata','task.py',103),
-  ('handledata -> OPENDATA OPENHREF CONTENT CLOSEHREF CLOSEDATA skipcontent','handledata',6,'p_handledata','task.py',104),
-  ('handledata -> OPENDATA OPENHREF CONTENT CONTENT CLOSEHREF CLOSEDATA skipcontent','handledata',7,'p_handledata','task.py',105),
-  ('skipheaders -> OPENHEADER CONTENT CLOSEHEADER skipheaders','skipheaders',4,'p_skipheaders','task.py',112),
-  ('skipheaders -> OPENHEADER CONTENT CONTENT CLOSEHEADER skipheaders','skipheaders',5,'p_skipheaders','task.py',113),
-  ('skipheaders -> <empty>','skipheaders',0,'p_skipheaders','task.py',114),
-  ('printhandledata -> handledata printhandledata','printhandledata',2,'p_printhandledata','task.py',119),
-  ('printhandledata -> <empty>','printhandledata',0,'p_printhandledata','task.py',120),
-  ('handlerow -> OPENROW printhandledata CLOSEROW skipcontent handlerow','handlerow',5,'p_handlerow','task.py',124),
-  ('handlerow -> <empty>','handlerow',0,'p_handlerow','task.py',125),
-  ('st -> BEGINTABLE OPENHEAD OPENROW skipheaders CLOSEROW CLOSEHEAD OPENBODY handlerow CLOSEBODY','st',9,'p_st','task.py',130),
-  ('st -> <empty>','st',0,'p_st','task.py',131),
+  ('start -> active','start',1,'p_start','module1_sub.py',120),
+  ('start -> deaths','start',1,'p_start','module1_sub.py',121),
+  ('start -> newcases','start',1,'p_start','module1_sub.py',122),
+  ('start -> recover','start',1,'p_start','module1_sub.py',123),
+  ('skipcontent -> CONTENT skipcontent','skipcontent',2,'p_skipcontent','module1_sub.py',128),
+  ('skipcontent -> CONTENT','skipcontent',1,'p_skipcontent','module1_sub.py',129),
+  ('active -> ACTIVE skipcontent CATEGOR CONTENT skipcontent LINE CONTENT','active',7,'p_active','module1_sub.py',133),
+  ('deaths -> DEATHS skipcontent CATEGOR CONTENT skipcontent LINE CONTENT','deaths',7,'p_deaths','module1_sub.py',147),
+  ('newcases -> NEWCASES skipcontent CATEGOR CONTENT skipcontent LINE CONTENT','newcases',7,'p_newcases','module1_sub.py',162),
+  ('recover -> RECOVERED skipcontent LINE CONTENT','recover',4,'p_recover','module1_sub.py',176),
 ]
