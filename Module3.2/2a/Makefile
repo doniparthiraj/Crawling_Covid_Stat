@@ -5,7 +5,7 @@ END_DATE := $(shell read -p "Enter end date (DD-MM-YYYY): " END_DATE; echo $$END
 # Define targets
 .PHONY: all mapper reducer clean
 
-all: mapper1  
+all: mapper1  reducer
 
 
 # Target to run mapper.py for each file and then execute reducer.py
@@ -30,4 +30,4 @@ mapper1:
 
 	
 reducer:
-	cat temp.txt | python3 reducer.py "$(START_DATE)" "$(END_DATE)" 
+	cat temp.txt | python3 reducer.py "$(START_DATE)" "$(END_DATE)" > result.txt
