@@ -1,7 +1,7 @@
 Team Members 
 
 Shiruri Karthik (implemented module2 and module3.2)
-Raj Kiran (implemented module1)
+Raj Kiran (implemented module1 and module 5)
 Kishore
 
 
