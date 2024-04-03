@@ -6,10 +6,14 @@ https://github.com/doniparthiraj/Crawling_Covid_Stat
 
 Team Members 
 
-23CS60R55 Shiruri Karthik (implemented module2 and module3.2) 
-23CS60R77 Raj Kiran (implemented module1)
-23CS60R27 Kishore kumar Seera
+Shiruri Karthik (implemented module2 and module3.2- (1,2) )
+Raj Kiran (implemented module1 and module 5)
+Kishore Kumar (implemented module 3.1, module 3.2-(3,4,5), module-4)
 
+
+Execution for Module 3 and 4:
+python3 run.py in Crawling_Covid_stat directory
+run.py is a menu driven program that executes quries of modules 3.1 and 3.2.
 
 
 

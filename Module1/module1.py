@@ -3,8 +3,10 @@ import ply.yacc as yacc
 from urllib.request import Request, urlopen
 import html
 import re
+from module1_sub import Extract_data
 id = 0
 query = None
+countries_url = {}
 def extract_countries(file_path):
     with open(file_path, 'r') as file:
         lines = file.readlines()     
@@ -146,6 +148,16 @@ def p_handledata(p):
             x = p[3]
             # print(x)
             if x in list(total_data.keys()):
+                link = p[2]
+                pattern = r'href="([^"]*)"'
+                match = re.search(pattern, link)
+                url = "https://www.worldometers.info/coronavirus/"
+                if match:
+                    href_value = match.group(1)
+                    extract_url = url + href_value
+                    # print("Extracted href value:", extract_url)
+                global countries_url
+                countries_url[x] = extract_url
                 query = x
         if len(p) == 5:
             x = p[2]
@@ -259,22 +271,23 @@ def main():
             all_info_file.write('\n')
 
     # Writing to countries_info.txt
-    with open('countries_info.txt', 'w') as countries_info_file:
-        countries_info_file.write('Name\t')
-        for x in country_query:
-            countries_info_file.write(x + '\t')
-        countries_info_file.write('\n')
+    # with open('countries_info.txt', 'w') as countries_info_file:
+    #     countries_info_file.write('Name\t')
+    #     for x in country_query:
+    #         countries_info_file.write(x + '\t')
+    #     countries_info_file.write('\n')
 
-        for x in countries:
-            countries_info_file.write(x + '\t')
-            for q in country_query:
-                val = total_data[x][index[q]]
-                if val is None:
-                    countries_info_file.write('N/A\t')
-                else:
-                    countries_info_file.write("{:<12}".format(str(val)) + '\t')
-            countries_info_file.write('\n')
+    #     for x in countries:
+    #         countries_info_file.write(x + '\t')
+    #         for q in country_query:
+    #             val = total_data[x][index[q]]
+    #             if val is None:
+    #                 countries_info_file.write('N/A\t')
+    #             else:
+    #                 countries_info_file.write("{:<12}".format(str(val)) + '\t')
+    #         countries_info_file.write('\n')
 
+    Extract_data(countries_url)
 
 if __name__ == '__main__':
 	main()

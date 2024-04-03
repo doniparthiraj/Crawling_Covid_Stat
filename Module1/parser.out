@@ -2,62 +2,71 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
 Unused terminals:
 
+    CLOSEBODY
+    CLOSEDATA
     CLOSEDIV
+    CLOSEHEAD
+    CLOSEHEADER
+    CLOSEHREF
+    CLOSEROW
     CLOSETABLE
+    OPENBODY
+    OPENDATA
     OPENDIV
+    OPENHEAD
+    OPENHEADER
+    OPENHREF
+    OPENROW
     OPENTABLE
 
 Grammar
 
 Rule 0     S' -> start
-Rule 1     start -> st
-Rule 2     skipcontent -> CONTENT skipcontent
-Rule 3     skipcontent -> <empty>
-Rule 4     handledata -> OPENDATA CLOSEDATA skipcontent
-Rule 5     handledata -> OPENDATA CONTENT CLOSEDATA skipcontent
-Rule 6     handledata -> OPENDATA CONTENT CONTENT CLOSEDATA skipcontent
-Rule 7     handledata -> OPENDATA OPENHREF CONTENT CLOSEHREF CLOSEDATA skipcontent
-Rule 8     handledata -> OPENDATA OPENHREF CONTENT CONTENT CLOSEHREF CLOSEDATA skipcontent
-Rule 9     skipheaders -> OPENHEADER CONTENT CLOSEHEADER skipheaders
-Rule 10    skipheaders -> OPENHEADER CONTENT CONTENT CLOSEHEADER skipheaders
-Rule 11    skipheaders -> <empty>
-Rule 12    printhandledata -> handledata printhandledata
-Rule 13    printhandledata -> <empty>
-Rule 14    handlerow -> OPENROW printhandledata CLOSEROW skipcontent handlerow
-Rule 15    handlerow -> <empty>
-Rule 16    st -> BEGINTABLE OPENHEAD OPENROW skipheaders CLOSEROW CLOSEHEAD OPENBODY handlerow CLOSEBODY
-Rule 17    st -> <empty>
+Rule 1     start -> active
+Rule 2     start -> deaths
+Rule 3     start -> newcases
+Rule 4     start -> recover
+Rule 5     skipcontent -> CONTENT skipcontent
+Rule 6     skipcontent -> CONTENT
+Rule 7     active -> ACTIVE skipcontent CATEGOR CONTENT skipcontent LINE CONTENT
+Rule 8     deaths -> DEATHS skipcontent CATEGOR CONTENT skipcontent LINE CONTENT
+Rule 9     newcases -> NEWCASES skipcontent CATEGOR CONTENT skipcontent LINE CONTENT
+Rule 10    recover -> RECOVERED skipcontent LINE CONTENT
 
 Terminals, with rules where they appear
 
-BEGINTABLE           : 16
-CLOSEBODY            : 16
-CLOSEDATA            : 4 5 6 7 8
+ACTIVE               : 7
+CATEGOR              : 7 8 9
+CLOSEBODY            : 
+CLOSEDATA            : 
 CLOSEDIV             : 
-CLOSEHEAD            : 16
-CLOSEHEADER          : 9 10
-CLOSEHREF            : 7 8
-CLOSEROW             : 14 16
+CLOSEHEAD            : 
+CLOSEHEADER          : 
+CLOSEHREF            : 
+CLOSEROW             : 
 CLOSETABLE           : 
-CONTENT              : 2 5 6 6 7 8 8 9 10 10
-OPENBODY             : 16
-OPENDATA             : 4 5 6 7 8
+CONTENT              : 5 6 7 7 8 8 9 9 10
+DEATHS               : 8
+LINE                 : 7 8 9 10
+NEWCASES             : 9
+OPENBODY             : 
+OPENDATA             : 
 OPENDIV              : 
-OPENHEAD             : 16
-OPENHEADER           : 9 10
-OPENHREF             : 7 8
-OPENROW              : 14 16
+OPENHEAD             : 
+OPENHEADER           : 
+OPENHREF             : 
+OPENROW              : 
 OPENTABLE            : 
+RECOVERED            : 10
 error                : 
 
 Nonterminals, with rules where they appear
 
-handledata           : 12
-handlerow            : 14 16
-printhandledata      : 12 14
-skipcontent          : 2 4 5 6 7 8 14
-skipheaders          : 9 10 16
-st                   : 1
+active               : 1
+deaths               : 2
+newcases             : 3
+recover              : 4
+skipcontent          : 5 7 7 8 8 9 9 10
 start                : 0
 
 Parsing method: LALR
@@ -65,15 +74,25 @@ Parsing method: LALR
 state 0
 
     (0) S' -> . start
-    (1) start -> . st
-    (16) st -> . BEGINTABLE OPENHEAD OPENROW skipheaders CLOSEROW CLOSEHEAD OPENBODY handlerow CLOSEBODY
-    (17) st -> .
+    (1) start -> . active
+    (2) start -> . deaths
+    (3) start -> . newcases
+    (4) start -> . recover
+    (7) active -> . ACTIVE skipcontent CATEGOR CONTENT skipcontent LINE CONTENT
+    (8) deaths -> . DEATHS skipcontent CATEGOR CONTENT skipcontent LINE CONTENT
+    (9) newcases -> . NEWCASES skipcontent CATEGOR CONTENT skipcontent LINE CONTENT
+    (10) recover -> . RECOVERED skipcontent LINE CONTENT
 
-    BEGINTABLE      shift and go to state 3
-    $end            reduce using rule 17 (st -> .)
+    ACTIVE          shift and go to state 6
+    DEATHS          shift and go to state 7
+    NEWCASES        shift and go to state 8
+    RECOVERED       shift and go to state 9
 
     start                          shift and go to state 1
-    st                             shift and go to state 2
+    active                         shift and go to state 2
+    deaths                         shift and go to state 3
+    newcases                       shift and go to state 4
+    recover                        shift and go to state 5
 
 state 1
 
@@ -83,410 +102,245 @@ state 1
 
 state 2
 
-    (1) start -> st .
+    (1) start -> active .
 
-    $end            reduce using rule 1 (start -> st .)
+    $end            reduce using rule 1 (start -> active .)
 
 
 state 3
 
-    (16) st -> BEGINTABLE . OPENHEAD OPENROW skipheaders CLOSEROW CLOSEHEAD OPENBODY handlerow CLOSEBODY
+    (2) start -> deaths .
 
-    OPENHEAD        shift and go to state 4
+    $end            reduce using rule 2 (start -> deaths .)
 
 
 state 4
 
-    (16) st -> BEGINTABLE OPENHEAD . OPENROW skipheaders CLOSEROW CLOSEHEAD OPENBODY handlerow CLOSEBODY
+    (3) start -> newcases .
 
-    OPENROW         shift and go to state 5
+    $end            reduce using rule 3 (start -> newcases .)
 
 
 state 5
 
-    (16) st -> BEGINTABLE OPENHEAD OPENROW . skipheaders CLOSEROW CLOSEHEAD OPENBODY handlerow CLOSEBODY
-    (9) skipheaders -> . OPENHEADER CONTENT CLOSEHEADER skipheaders
-    (10) skipheaders -> . OPENHEADER CONTENT CONTENT CLOSEHEADER skipheaders
-    (11) skipheaders -> .
+    (4) start -> recover .
 
-    OPENHEADER      shift and go to state 7
-    CLOSEROW        reduce using rule 11 (skipheaders -> .)
+    $end            reduce using rule 4 (start -> recover .)
 
-    skipheaders                    shift and go to state 6
 
 state 6
 
-    (16) st -> BEGINTABLE OPENHEAD OPENROW skipheaders . CLOSEROW CLOSEHEAD OPENBODY handlerow CLOSEBODY
+    (7) active -> ACTIVE . skipcontent CATEGOR CONTENT skipcontent LINE CONTENT
+    (5) skipcontent -> . CONTENT skipcontent
+    (6) skipcontent -> . CONTENT
 
-    CLOSEROW        shift and go to state 8
+    CONTENT         shift and go to state 11
 
+    skipcontent                    shift and go to state 10
 
 state 7
 
-    (9) skipheaders -> OPENHEADER . CONTENT CLOSEHEADER skipheaders
-    (10) skipheaders -> OPENHEADER . CONTENT CONTENT CLOSEHEADER skipheaders
+    (8) deaths -> DEATHS . skipcontent CATEGOR CONTENT skipcontent LINE CONTENT
+    (5) skipcontent -> . CONTENT skipcontent
+    (6) skipcontent -> . CONTENT
 
-    CONTENT         shift and go to state 9
+    CONTENT         shift and go to state 11
 
+    skipcontent                    shift and go to state 12
 
 state 8
 
-    (16) st -> BEGINTABLE OPENHEAD OPENROW skipheaders CLOSEROW . CLOSEHEAD OPENBODY handlerow CLOSEBODY
+    (9) newcases -> NEWCASES . skipcontent CATEGOR CONTENT skipcontent LINE CONTENT
+    (5) skipcontent -> . CONTENT skipcontent
+    (6) skipcontent -> . CONTENT
 
-    CLOSEHEAD       shift and go to state 10
+    CONTENT         shift and go to state 11
 
+    skipcontent                    shift and go to state 13
 
 state 9
 
-    (9) skipheaders -> OPENHEADER CONTENT . CLOSEHEADER skipheaders
-    (10) skipheaders -> OPENHEADER CONTENT . CONTENT CLOSEHEADER skipheaders
+    (10) recover -> RECOVERED . skipcontent LINE CONTENT
+    (5) skipcontent -> . CONTENT skipcontent
+    (6) skipcontent -> . CONTENT
 
-    CLOSEHEADER     shift and go to state 12
     CONTENT         shift and go to state 11
 
+    skipcontent                    shift and go to state 14
 
 state 10
 
-    (16) st -> BEGINTABLE OPENHEAD OPENROW skipheaders CLOSEROW CLOSEHEAD . OPENBODY handlerow CLOSEBODY
+    (7) active -> ACTIVE skipcontent . CATEGOR CONTENT skipcontent LINE CONTENT
 
-    OPENBODY        shift and go to state 13
+    CATEGOR         shift and go to state 15
 
 
 state 11
 
-    (10) skipheaders -> OPENHEADER CONTENT CONTENT . CLOSEHEADER skipheaders
+    (5) skipcontent -> CONTENT . skipcontent
+    (6) skipcontent -> CONTENT .
+    (5) skipcontent -> . CONTENT skipcontent
+    (6) skipcontent -> . CONTENT
 
-    CLOSEHEADER     shift and go to state 14
+    CATEGOR         reduce using rule 6 (skipcontent -> CONTENT .)
+    LINE            reduce using rule 6 (skipcontent -> CONTENT .)
+    CONTENT         shift and go to state 11
 
+    skipcontent                    shift and go to state 16
 
 state 12
 
-    (9) skipheaders -> OPENHEADER CONTENT CLOSEHEADER . skipheaders
-    (9) skipheaders -> . OPENHEADER CONTENT CLOSEHEADER skipheaders
-    (10) skipheaders -> . OPENHEADER CONTENT CONTENT CLOSEHEADER skipheaders
-    (11) skipheaders -> .
+    (8) deaths -> DEATHS skipcontent . CATEGOR CONTENT skipcontent LINE CONTENT
 
-    OPENHEADER      shift and go to state 7
-    CLOSEROW        reduce using rule 11 (skipheaders -> .)
+    CATEGOR         shift and go to state 17
 
-    skipheaders                    shift and go to state 15
 
 state 13
 
-    (16) st -> BEGINTABLE OPENHEAD OPENROW skipheaders CLOSEROW CLOSEHEAD OPENBODY . handlerow CLOSEBODY
-    (14) handlerow -> . OPENROW printhandledata CLOSEROW skipcontent handlerow
-    (15) handlerow -> .
+    (9) newcases -> NEWCASES skipcontent . CATEGOR CONTENT skipcontent LINE CONTENT
 
-    OPENROW         shift and go to state 16
-    CLOSEBODY       reduce using rule 15 (handlerow -> .)
+    CATEGOR         shift and go to state 18
 
-    handlerow                      shift and go to state 17
 
 state 14
 
-    (10) skipheaders -> OPENHEADER CONTENT CONTENT CLOSEHEADER . skipheaders
-    (9) skipheaders -> . OPENHEADER CONTENT CLOSEHEADER skipheaders
-    (10) skipheaders -> . OPENHEADER CONTENT CONTENT CLOSEHEADER skipheaders
-    (11) skipheaders -> .
+    (10) recover -> RECOVERED skipcontent . LINE CONTENT
 
-    OPENHEADER      shift and go to state 7
-    CLOSEROW        reduce using rule 11 (skipheaders -> .)
+    LINE            shift and go to state 19
 
-    skipheaders                    shift and go to state 18
 
 state 15
 
-    (9) skipheaders -> OPENHEADER CONTENT CLOSEHEADER skipheaders .
+    (7) active -> ACTIVE skipcontent CATEGOR . CONTENT skipcontent LINE CONTENT
 
-    CLOSEROW        reduce using rule 9 (skipheaders -> OPENHEADER CONTENT CLOSEHEADER skipheaders .)
+    CONTENT         shift and go to state 20
 
 
 state 16
 
-    (14) handlerow -> OPENROW . printhandledata CLOSEROW skipcontent handlerow
-    (12) printhandledata -> . handledata printhandledata
-    (13) printhandledata -> .
-    (4) handledata -> . OPENDATA CLOSEDATA skipcontent
-    (5) handledata -> . OPENDATA CONTENT CLOSEDATA skipcontent
-    (6) handledata -> . OPENDATA CONTENT CONTENT CLOSEDATA skipcontent
-    (7) handledata -> . OPENDATA OPENHREF CONTENT CLOSEHREF CLOSEDATA skipcontent
-    (8) handledata -> . OPENDATA OPENHREF CONTENT CONTENT CLOSEHREF CLOSEDATA skipcontent
+    (5) skipcontent -> CONTENT skipcontent .
 
-    CLOSEROW        reduce using rule 13 (printhandledata -> .)
-    OPENDATA        shift and go to state 21
+    CATEGOR         reduce using rule 5 (skipcontent -> CONTENT skipcontent .)
+    LINE            reduce using rule 5 (skipcontent -> CONTENT skipcontent .)
 
-    printhandledata                shift and go to state 19
-    handledata                     shift and go to state 20
 
 state 17
 
-    (16) st -> BEGINTABLE OPENHEAD OPENROW skipheaders CLOSEROW CLOSEHEAD OPENBODY handlerow . CLOSEBODY
+    (8) deaths -> DEATHS skipcontent CATEGOR . CONTENT skipcontent LINE CONTENT
 
-    CLOSEBODY       shift and go to state 22
+    CONTENT         shift and go to state 21
 
 
 state 18
 
-    (10) skipheaders -> OPENHEADER CONTENT CONTENT CLOSEHEADER skipheaders .
+    (9) newcases -> NEWCASES skipcontent CATEGOR . CONTENT skipcontent LINE CONTENT
 
-    CLOSEROW        reduce using rule 10 (skipheaders -> OPENHEADER CONTENT CONTENT CLOSEHEADER skipheaders .)
+    CONTENT         shift and go to state 22
 
 
 state 19
 
-    (14) handlerow -> OPENROW printhandledata . CLOSEROW skipcontent handlerow
+    (10) recover -> RECOVERED skipcontent LINE . CONTENT
 
-    CLOSEROW        shift and go to state 23
+    CONTENT         shift and go to state 23
 
 
 state 20
 
-    (12) printhandledata -> handledata . printhandledata
-    (12) printhandledata -> . handledata printhandledata
-    (13) printhandledata -> .
-    (4) handledata -> . OPENDATA CLOSEDATA skipcontent
-    (5) handledata -> . OPENDATA CONTENT CLOSEDATA skipcontent
-    (6) handledata -> . OPENDATA CONTENT CONTENT CLOSEDATA skipcontent
-    (7) handledata -> . OPENDATA OPENHREF CONTENT CLOSEHREF CLOSEDATA skipcontent
-    (8) handledata -> . OPENDATA OPENHREF CONTENT CONTENT CLOSEHREF CLOSEDATA skipcontent
+    (7) active -> ACTIVE skipcontent CATEGOR CONTENT . skipcontent LINE CONTENT
+    (5) skipcontent -> . CONTENT skipcontent
+    (6) skipcontent -> . CONTENT
 
-    CLOSEROW        reduce using rule 13 (printhandledata -> .)
-    OPENDATA        shift and go to state 21
+    CONTENT         shift and go to state 11
 
-    handledata                     shift and go to state 20
-    printhandledata                shift and go to state 24
+    skipcontent                    shift and go to state 24
 
 state 21
 
-    (4) handledata -> OPENDATA . CLOSEDATA skipcontent
-    (5) handledata -> OPENDATA . CONTENT CLOSEDATA skipcontent
-    (6) handledata -> OPENDATA . CONTENT CONTENT CLOSEDATA skipcontent
-    (7) handledata -> OPENDATA . OPENHREF CONTENT CLOSEHREF CLOSEDATA skipcontent
-    (8) handledata -> OPENDATA . OPENHREF CONTENT CONTENT CLOSEHREF CLOSEDATA skipcontent
+    (8) deaths -> DEATHS skipcontent CATEGOR CONTENT . skipcontent LINE CONTENT
+    (5) skipcontent -> . CONTENT skipcontent
+    (6) skipcontent -> . CONTENT
 
-    CLOSEDATA       shift and go to state 25
-    CONTENT         shift and go to state 26
-    OPENHREF        shift and go to state 27
+    CONTENT         shift and go to state 11
 
+    skipcontent                    shift and go to state 25
 
 state 22
 
-    (16) st -> BEGINTABLE OPENHEAD OPENROW skipheaders CLOSEROW CLOSEHEAD OPENBODY handlerow CLOSEBODY .
+    (9) newcases -> NEWCASES skipcontent CATEGOR CONTENT . skipcontent LINE CONTENT
+    (5) skipcontent -> . CONTENT skipcontent
+    (6) skipcontent -> . CONTENT
 
-    $end            reduce using rule 16 (st -> BEGINTABLE OPENHEAD OPENROW skipheaders CLOSEROW CLOSEHEAD OPENBODY handlerow CLOSEBODY .)
+    CONTENT         shift and go to state 11
 
+    skipcontent                    shift and go to state 26
 
 state 23
 
-    (14) handlerow -> OPENROW printhandledata CLOSEROW . skipcontent handlerow
-    (2) skipcontent -> . CONTENT skipcontent
-    (3) skipcontent -> .
+    (10) recover -> RECOVERED skipcontent LINE CONTENT .
 
-    CONTENT         shift and go to state 29
-    OPENROW         reduce using rule 3 (skipcontent -> .)
-    CLOSEBODY       reduce using rule 3 (skipcontent -> .)
+    $end            reduce using rule 10 (recover -> RECOVERED skipcontent LINE CONTENT .)
 
-    skipcontent                    shift and go to state 28
 
 state 24
 
-    (12) printhandledata -> handledata printhandledata .
+    (7) active -> ACTIVE skipcontent CATEGOR CONTENT skipcontent . LINE CONTENT
 
-    CLOSEROW        reduce using rule 12 (printhandledata -> handledata printhandledata .)
+    LINE            shift and go to state 27
 
 
 state 25
 
-    (4) handledata -> OPENDATA CLOSEDATA . skipcontent
-    (2) skipcontent -> . CONTENT skipcontent
-    (3) skipcontent -> .
+    (8) deaths -> DEATHS skipcontent CATEGOR CONTENT skipcontent . LINE CONTENT
 
-    CONTENT         shift and go to state 29
-    OPENDATA        reduce using rule 3 (skipcontent -> .)
-    CLOSEROW        reduce using rule 3 (skipcontent -> .)
+    LINE            shift and go to state 28
 
-    skipcontent                    shift and go to state 30
 
 state 26
 
-    (5) handledata -> OPENDATA CONTENT . CLOSEDATA skipcontent
-    (6) handledata -> OPENDATA CONTENT . CONTENT CLOSEDATA skipcontent
+    (9) newcases -> NEWCASES skipcontent CATEGOR CONTENT skipcontent . LINE CONTENT
 
-    CLOSEDATA       shift and go to state 32
-    CONTENT         shift and go to state 31
+    LINE            shift and go to state 29
 
 
 state 27
 
-    (7) handledata -> OPENDATA OPENHREF . CONTENT CLOSEHREF CLOSEDATA skipcontent
-    (8) handledata -> OPENDATA OPENHREF . CONTENT CONTENT CLOSEHREF CLOSEDATA skipcontent
+    (7) active -> ACTIVE skipcontent CATEGOR CONTENT skipcontent LINE . CONTENT
 
-    CONTENT         shift and go to state 33
+    CONTENT         shift and go to state 30
 
 
 state 28
 
-    (14) handlerow -> OPENROW printhandledata CLOSEROW skipcontent . handlerow
-    (14) handlerow -> . OPENROW printhandledata CLOSEROW skipcontent handlerow
-    (15) handlerow -> .
+    (8) deaths -> DEATHS skipcontent CATEGOR CONTENT skipcontent LINE . CONTENT
 
-    OPENROW         shift and go to state 16
-    CLOSEBODY       reduce using rule 15 (handlerow -> .)
+    CONTENT         shift and go to state 31
 
-    handlerow                      shift and go to state 34
 
 state 29
 
-    (2) skipcontent -> CONTENT . skipcontent
-    (2) skipcontent -> . CONTENT skipcontent
-    (3) skipcontent -> .
+    (9) newcases -> NEWCASES skipcontent CATEGOR CONTENT skipcontent LINE . CONTENT
 
-    CONTENT         shift and go to state 29
-    OPENROW         reduce using rule 3 (skipcontent -> .)
-    CLOSEBODY       reduce using rule 3 (skipcontent -> .)
-    OPENDATA        reduce using rule 3 (skipcontent -> .)
-    CLOSEROW        reduce using rule 3 (skipcontent -> .)
+    CONTENT         shift and go to state 32
 
-    skipcontent                    shift and go to state 35
 
 state 30
 
-    (4) handledata -> OPENDATA CLOSEDATA skipcontent .
+    (7) active -> ACTIVE skipcontent CATEGOR CONTENT skipcontent LINE CONTENT .
 
-    OPENDATA        reduce using rule 4 (handledata -> OPENDATA CLOSEDATA skipcontent .)
-    CLOSEROW        reduce using rule 4 (handledata -> OPENDATA CLOSEDATA skipcontent .)
+    $end            reduce using rule 7 (active -> ACTIVE skipcontent CATEGOR CONTENT skipcontent LINE CONTENT .)
 
 
 state 31
 
-    (6) handledata -> OPENDATA CONTENT CONTENT . CLOSEDATA skipcontent
+    (8) deaths -> DEATHS skipcontent CATEGOR CONTENT skipcontent LINE CONTENT .
 
-    CLOSEDATA       shift and go to state 36
+    $end            reduce using rule 8 (deaths -> DEATHS skipcontent CATEGOR CONTENT skipcontent LINE CONTENT .)
 
 
 state 32
 
-    (5) handledata -> OPENDATA CONTENT CLOSEDATA . skipcontent
-    (2) skipcontent -> . CONTENT skipcontent
-    (3) skipcontent -> .
+    (9) newcases -> NEWCASES skipcontent CATEGOR CONTENT skipcontent LINE CONTENT .
 
-    CONTENT         shift and go to state 29
-    OPENDATA        reduce using rule 3 (skipcontent -> .)
-    CLOSEROW        reduce using rule 3 (skipcontent -> .)
-
-    skipcontent                    shift and go to state 37
-
-state 33
-
-    (7) handledata -> OPENDATA OPENHREF CONTENT . CLOSEHREF CLOSEDATA skipcontent
-    (8) handledata -> OPENDATA OPENHREF CONTENT . CONTENT CLOSEHREF CLOSEDATA skipcontent
-
-    CLOSEHREF       shift and go to state 39
-    CONTENT         shift and go to state 38
-
-
-state 34
-
-    (14) handlerow -> OPENROW printhandledata CLOSEROW skipcontent handlerow .
-
-    CLOSEBODY       reduce using rule 14 (handlerow -> OPENROW printhandledata CLOSEROW skipcontent handlerow .)
-
-
-state 35
-
-    (2) skipcontent -> CONTENT skipcontent .
-
-    OPENROW         reduce using rule 2 (skipcontent -> CONTENT skipcontent .)
-    CLOSEBODY       reduce using rule 2 (skipcontent -> CONTENT skipcontent .)
-    OPENDATA        reduce using rule 2 (skipcontent -> CONTENT skipcontent .)
-    CLOSEROW        reduce using rule 2 (skipcontent -> CONTENT skipcontent .)
-
-
-state 36
-
-    (6) handledata -> OPENDATA CONTENT CONTENT CLOSEDATA . skipcontent
-    (2) skipcontent -> . CONTENT skipcontent
-    (3) skipcontent -> .
-
-    CONTENT         shift and go to state 29
-    OPENDATA        reduce using rule 3 (skipcontent -> .)
-    CLOSEROW        reduce using rule 3 (skipcontent -> .)
-
-    skipcontent                    shift and go to state 40
-
-state 37
-
-    (5) handledata -> OPENDATA CONTENT CLOSEDATA skipcontent .
-
-    OPENDATA        reduce using rule 5 (handledata -> OPENDATA CONTENT CLOSEDATA skipcontent .)
-    CLOSEROW        reduce using rule 5 (handledata -> OPENDATA CONTENT CLOSEDATA skipcontent .)
-
-
-state 38
-
-    (8) handledata -> OPENDATA OPENHREF CONTENT CONTENT . CLOSEHREF CLOSEDATA skipcontent
-
-    CLOSEHREF       shift and go to state 41
-
-
-state 39
-
-    (7) handledata -> OPENDATA OPENHREF CONTENT CLOSEHREF . CLOSEDATA skipcontent
-
-    CLOSEDATA       shift and go to state 42
-
-
-state 40
-
-    (6) handledata -> OPENDATA CONTENT CONTENT CLOSEDATA skipcontent .
-
-    OPENDATA        reduce using rule 6 (handledata -> OPENDATA CONTENT CONTENT CLOSEDATA skipcontent .)
-    CLOSEROW        reduce using rule 6 (handledata -> OPENDATA CONTENT CONTENT CLOSEDATA skipcontent .)
-
-
-state 41
-
-    (8) handledata -> OPENDATA OPENHREF CONTENT CONTENT CLOSEHREF . CLOSEDATA skipcontent
-
-    CLOSEDATA       shift and go to state 43
-
-
-state 42
-
-    (7) handledata -> OPENDATA OPENHREF CONTENT CLOSEHREF CLOSEDATA . skipcontent
-    (2) skipcontent -> . CONTENT skipcontent
-    (3) skipcontent -> .
-
-    CONTENT         shift and go to state 29
-    OPENDATA        reduce using rule 3 (skipcontent -> .)
-    CLOSEROW        reduce using rule 3 (skipcontent -> .)
-
-    skipcontent                    shift and go to state 44
-
-state 43
-
-    (8) handledata -> OPENDATA OPENHREF CONTENT CONTENT CLOSEHREF CLOSEDATA . skipcontent
-    (2) skipcontent -> . CONTENT skipcontent
-    (3) skipcontent -> .
-
-    CONTENT         shift and go to state 29
-    OPENDATA        reduce using rule 3 (skipcontent -> .)
-    CLOSEROW        reduce using rule 3 (skipcontent -> .)
-
-    skipcontent                    shift and go to state 45
-
-state 44
-
-    (7) handledata -> OPENDATA OPENHREF CONTENT CLOSEHREF CLOSEDATA skipcontent .
-
-    OPENDATA        reduce using rule 7 (handledata -> OPENDATA OPENHREF CONTENT CLOSEHREF CLOSEDATA skipcontent .)
-    CLOSEROW        reduce using rule 7 (handledata -> OPENDATA OPENHREF CONTENT CLOSEHREF CLOSEDATA skipcontent .)
-
-
-state 45
-
-    (8) handledata -> OPENDATA OPENHREF CONTENT CONTENT CLOSEHREF CLOSEDATA skipcontent .
-
-    OPENDATA        reduce using rule 8 (handledata -> OPENDATA OPENHREF CONTENT CONTENT CLOSEHREF CLOSEDATA skipcontent .)
-    CLOSEROW        reduce using rule 8 (handledata -> OPENDATA OPENHREF CONTENT CONTENT CLOSEHREF CLOSEDATA skipcontent .)
+    $end            reduce using rule 9 (newcases -> NEWCASES skipcontent CATEGOR CONTENT skipcontent LINE CONTENT .)
 
