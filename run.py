@@ -36,10 +36,12 @@ def module_32_menu(current_module):
     """Displays the menu for Module 3.2."""
     clear_screen()
     print("Module 3.2(Addressing Queries of Wikipedia Covid News)")
-    print("1. Execute Query 3")
-    print("2. Execute Query 4")
-    print("3. Execute Query 5")
-    print("4. Back to Main Menu")
+    print("1. Execute Query 2.1")
+    print("2. Execute Query 2.2")
+    print("3. Execute Query 3")
+    print("4. Execute Query 4")
+    print("5. Execute Query 5")
+    print("6. Back to Main Menu")
     return current_module
 
 # Main program
@@ -67,12 +69,17 @@ while True:
         while True:
             module_choice = input("\nEnter your choice: ")
             if module_choice == '1':
-                execute_module("Module3.2-345", "query3", current_module)
+                execute_module("Module3.2/2a", "all", current_module)
             elif module_choice == '2':
-                execute_module("Module3.2-345", "query4", current_module)
+                execute_module("Module3.2/2b", "all", current_module)
             elif module_choice == '3':
-                execute_module("Module3.2-345", "query5", current_module)
+                execute_module("Module3.2-345", "query3", current_module)
+
             elif module_choice == '4':
+                execute_module("Module3.2-345", "query4", current_module)
+            elif module_choice == '5':
+                execute_module("Module3.2-345", "query5", current_module)
+            elif module_choice == '6':
                 break
             else:
                 print("Invalid choice! Please try again.")
