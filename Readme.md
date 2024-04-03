@@ -1,8 +1,14 @@
+
+GIT HUB REPO
+
+https://github.com/doniparthiraj/Crawling_Covid_Stat
+
+
 Team Members 
 
-Shiruri Karthik (implemented module2 and module3.2)
-Raj Kiran (implemented module1)
-Kishore
+23CS60R55 Shiruri Karthik (implemented module2 and module3.2) 
+23CS60R77 Raj Kiran (implemented module1)
+23CS60R27 Kishore kumar Seera
 
 
 
